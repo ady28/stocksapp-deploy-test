@@ -30,7 +30,7 @@ services:
       - stocksmongouser
       - stocksmongopassword
   stocksapiclient:
-    image: lnx1:5000/stocksfrontendapi:test
+    image: ady28/stocks-frontend-api:test
     depends_on: 
       - stocksdb
     ports:
@@ -39,9 +39,13 @@ services:
       - stocksmongouser
       - stocksmongopassword
     environment:
+      - PORT=8080
+      - MONGODBSERVERNAME=stocksdb
+      - MONGODBSERVERPORT=27017
       - STOCKSDB=stocks
       - STOCKSAPISERVER=stocksimport
       - STOCKSAPISERVERPORT=8080
+      - NODE_ENV=production
   stocksfrontend:
     image: ady28/stocks-frontend:test
     depends_on: 
