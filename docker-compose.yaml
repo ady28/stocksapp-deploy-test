@@ -15,7 +15,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/stocksmongouser
       - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/stocksmongopassword
   stocksimport:
-    image: lnx1:5000/stocksimportapi:test
+    image: ady28/stocks-import:test
     depends_on: 
       - stocksdb
     ports:
