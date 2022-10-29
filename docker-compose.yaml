@@ -43,7 +43,7 @@ services:
       - STOCKSAPISERVER=stocksimport
       - STOCKSAPISERVERPORT=8080
   stocksfrontend:
-    image: lnx1:5000/stocksfrontend:test
+    image: ady28/stocks-frontend:test
     depends_on: 
       - stocksapiclient
     ports:
