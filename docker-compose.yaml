@@ -1,0 +1,99 @@
+version: "3.8"
+
+services:
+  stocksdb:
+    image: mongo:4.4.14-focal
+    user: "mongodb"
+    volumes: 
+      - stocksmongodata:/data/db
+    ports:
+      - '27017:27017'
+    secrets:
+      - stocksmongouser
+      - stocksmongopassword
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME_FILE=/run/secrets/stocksmongouser
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/stocksmongopassword
+  stocksimport:
+    image: lnx1:5000/stocksimportapi:test
+    depends_on: 
+      - stocksdb
+    ports:
+      - '8080:8080'
+    environment:
+      - COMPETITORS_NAME=stockscompetitors
+      - COMPETITORS_PORT=8080
+      - PORT=8080
+      - MONGODBSERVERNAME=stocksdb
+      - MONGODBSERVERPORT=27017
+    secrets:
+      - stocksmongouser
+      - stocksmongopassword
+  stocksapiclient:
+    image: lnx1:5000/stocksfrontendapi:test
+    depends_on: 
+      - stocksdb
+    ports:
+      - '8090:8080'
+    secrets:
+      - stocksmongouser
+      - stocksmongopassword
+    environment:
+      - STOCKSDB=stocks
+      - STOCKSAPISERVER=stocksimport
+      - STOCKSAPISERVERPORT=8080
+  stocksfrontend:
+    image: lnx1:5000/stocksfrontend:test
+    depends_on: 
+      - stocksapiclient
+    ports:
+      - '8085:8080'
+  stockscompetitors:
+    image: lnx1:5000/stockscompetitors:test
+    depends_on: 
+      - stocksimport
+    ports:
+      - '8087:8080'
+    secrets:
+      - stocksmongouser
+      - stocksmongopassword
+    environment:
+      - MONGO_DB=stocks
+      - MONGO_NAME=stocksdb
+      - MONGO_PORT=27017
+      - PORT=8080
+      - STOCKS_APP_ENV=test
+  stocksautoupdate:
+    image: lnx1:5000/stocks-autoupdate:test
+    command: main.ps1
+    depends_on: 
+      - stocksimport
+    secrets:
+      - stocksmongouser
+      - stocksmongopassword
+    environment:
+      - APP_ENV=test
+      - NO_STOCKS=10
+      - MONGO_SERVER=stocksdb
+      - MONGO_PORT=27017
+      - MONGO_DB=stocks
+      - STOCK_API_NAME=stocksimport
+      - STOCK_API_PORT=8080
+    deploy:
+      mode: replicated
+      replicas: 0
+      labels:
+        - "swarm.cronjob.enable=true"
+        - "swarm.cronjob.schedule=0 57 15 * * ?"
+        - "swarm.cronjob.skip-running=false"
+      restart_policy:
+        condition: none
+
+volumes:
+  stocksmongodata:
+
+secrets:
+  stocksmongouser:
+    external: true
+  stocksmongopassword:
+    external: true
