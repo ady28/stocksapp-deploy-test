@@ -49,7 +49,7 @@ services:
     ports:
       - '8085:8080'
   stockscompetitors:
-    image: lnx1:5000/stockscompetitors:test
+    image: ady28/stocks-competitors:test
     depends_on: 
       - stocksimport
     ports:
