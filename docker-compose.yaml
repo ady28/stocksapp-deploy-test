@@ -64,7 +64,7 @@ services:
       - PORT=8080
       - STOCKS_APP_ENV=test
   stocksautoupdate:
-    image: lnx1:5000/stocks-autoupdate:test
+    image: ady28/stocks-autoupdate:test
     command: main.ps1
     depends_on: 
       - stocksimport
