@@ -19,11 +19,7 @@ pipeline {
         stage('DeployTest'){
             steps {
                 echo "Deploying the stocks app for testing"
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'PrivateDockerCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh('echo $PASSWORD | docker login --username $USERNAME --password-stdin $INTERNAL_REGISTRY')
-                    sh('docker stack deploy --compose-file docker-compose.yaml stocksapp --with-registry-auth')
-                    sh('docker logout $INTERNAL_REGISTRY')
-                }
+                sh('docker stack deploy --compose-file docker-compose.yaml stocksapp')
             }
         }
     }
