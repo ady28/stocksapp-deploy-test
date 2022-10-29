@@ -7,3 +7,4 @@ What is needed:
    - echo "pass" | docker secret create stocksmongouserpassword -
  - The crazymax/swarm-cronjob:latest image running as a container or the program running as a service in the swarm cluster (https://crazymax.dev/swarm-cronjob/)
  - A container registry (self hosted in this case)
+ 
