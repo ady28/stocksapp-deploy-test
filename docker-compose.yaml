@@ -54,7 +54,7 @@ services:
       - '8085:8080'
     read_only: true
     tmpfs:
-      - /tmp
+      - /tmp:uid=101,gid=101
   stockscompetitors:
     image: ady28/stocks-competitors:test
     depends_on: 
