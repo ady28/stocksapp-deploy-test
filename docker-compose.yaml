@@ -55,7 +55,6 @@ services:
     read_only: true
     tmpfs:
       - /tmp
-      - /tmp/proxy_temp
   stockscompetitors:
     image: ady28/stocks-competitors:test
     depends_on: 
