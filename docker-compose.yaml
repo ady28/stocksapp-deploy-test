@@ -48,7 +48,6 @@ services:
       - NODE_ENV=production
   stocksfrontend:
     image: ady28/stocks-frontend:test
-    pull_policy: always
     depends_on: 
       - stocksapiclient
     ports:

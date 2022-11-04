@@ -19,7 +19,7 @@ pipeline {
         stage('DeployTest'){
             steps {
                 echo "Deploying the stocks app for testing"
-                sh('docker stack deploy --compose-file docker-compose.yaml stocksapp')
+                sh('docker stack deploy --compose-file docker-compose.yaml --resolve-image always stocksapp')
             }
         }
     }
