@@ -71,6 +71,9 @@ services:
       - MONGO_PORT=27017
       - PORT=8080
       - STOCKS_APP_ENV=test
+    volumes:
+      - type: tmpfs
+        target: /run
   stocksautoupdate:
     image: ady28/stocks-autoupdate:test
     command: main.ps1
