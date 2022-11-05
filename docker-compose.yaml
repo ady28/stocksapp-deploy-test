@@ -99,12 +99,6 @@ services:
       - MONGO_DB=stocks
       - STOCK_API_NAME=stocksimport
       - STOCK_API_PORT=8080
-    read_only: true
-    volumes:
-      - type: tmpfs
-        target: /run
-      - type: tmpfs
-        target: /nonexistent
     deploy:
       mode: replicated
       replicas: 0
