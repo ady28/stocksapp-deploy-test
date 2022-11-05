@@ -46,6 +46,10 @@ services:
       - STOCKSAPISERVER=stocksimport
       - STOCKSAPISERVERPORT=8080
       - NODE_ENV=production
+    read_only: true
+    volumes:
+      - type: tmpfs
+        target: /run
   stocksfrontend:
     image: ady28/stocks-frontend:test
     depends_on: 
