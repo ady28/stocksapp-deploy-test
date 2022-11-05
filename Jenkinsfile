@@ -7,9 +7,6 @@ pipeline {
     options {
         ansiColor('xterm')
     }
-    environment {
-        INTERNAL_REGISTRY = 'lnx1:5000'
-    }
     stages {
         stage('Check Docker Compose YAML file') {
             steps {
