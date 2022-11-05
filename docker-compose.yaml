@@ -29,6 +29,10 @@ services:
     secrets:
       - stocksmongouser
       - stocksmongopassword
+    read_only: true
+    volumes:
+      - type: tmpfs
+        target: /run
   stocksapiclient:
     image: ady28/stocks-frontend-api:test
     depends_on: 
