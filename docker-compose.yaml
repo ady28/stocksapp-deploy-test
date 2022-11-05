@@ -53,8 +53,9 @@ services:
     ports:
       - '8085:8080'
     read_only: true
-    tmpfs:
-      - /tmp:uid=101,gid=101,mode=770
+    volumes:
+      - type: tmpfs
+        target: /tmp
   stockscompetitors:
     image: ady28/stocks-competitors:test
     depends_on: 
