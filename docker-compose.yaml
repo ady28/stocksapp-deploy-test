@@ -71,6 +71,7 @@ services:
       - MONGO_PORT=27017
       - PORT=8080
       - STOCKS_APP_ENV=test
+    read_only: true
     volumes:
       - type: tmpfs
         target: /run
