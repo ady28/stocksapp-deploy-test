@@ -42,6 +42,7 @@ services:
     secrets:
       - stocksmongouser
       - stocksmongopassword
+      - jwtsecret
     environment:
       - PORT=8080
       - MONGODBSERVERNAME=stocksdb
@@ -118,4 +119,6 @@ secrets:
   stocksmongouser:
     external: true
   stocksmongopassword:
+    external: true
+  jwtsecret:
     external: true
