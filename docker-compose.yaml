@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   stocksdb:
-    image: mongo:5.0.14-focal
+    image: mongo:6.0.3-focal
     user: "mongodb"
     volumes: 
       - stocksmongodata:/data/db
