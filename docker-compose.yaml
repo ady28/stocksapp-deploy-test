@@ -34,7 +34,7 @@ services:
       - type: tmpfs
         target: /run
   stocksapiclient:
-    image: ady28/stocks-frontend-api:test
+    image: ady28/stocks-frontend-api:qual
     depends_on: 
       - stocksdb
     ports:
